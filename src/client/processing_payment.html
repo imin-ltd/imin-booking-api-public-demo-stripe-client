@@ -1,0 +1,28 @@
+<head>
+  <title>Checkout</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    (async () => {
+      const paymentIntentId = new URLSearchParams(window.location.search).get(
+        'payment_intent'
+      );
+      // Note: This is not representative of a real call to the B endpoint.
+      const res = await fetch('/b', {
+        method: 'PUT',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ paymentIntentId }),
+      });
+      console.log('result:', await res.json());
+      const statusMsg = document.getElementById('status-msg');
+      statusMsg.textContent = 'Processed';
+    })();
+  </script>
+</head>
+
+<body>
+
+  <h1 id="status-msg">Processing Payment..</h1>
+
+</body>
